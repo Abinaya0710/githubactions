@@ -25,12 +25,12 @@ jobs:
 
     - name: Validate CloudFormation Template
       run: |
-        aws cloudformation validate-template --template-body file://ec2-s3-sg.yml
+        aws cloudformation validate-template --template-body file://C:/githubactions/ec2-s3-sg.yml
 
     - name: Deploy CloudFormation Stack
       run: |
         aws cloudformation deploy \
-          --template-file ec2-s3-sg.yml \
+          --template-file file://C:/githubactions/ec2-s3-sg.yml \
           --stack-name mystack \
           --capabilities CAPABILITY_NAMED_IAM \
           --parameter-overrides KeyName=apachekeypair InstanceType=t2.micro
