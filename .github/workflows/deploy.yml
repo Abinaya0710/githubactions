@@ -33,4 +33,4 @@ jobs:
           --template-file ec2-s3-sg.yml \
           --stack-name mystack \
           --capabilities CAPABILITY_NAMED_IAM \
-          --parameter-overrides KeyName=apachekeypair InstanceType=t2.micro
+          --parameter-overrides KeyName=apachekeypair InstanceType=t3.micro
