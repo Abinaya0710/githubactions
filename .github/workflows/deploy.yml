@@ -1,4 +1,4 @@
-name: Deploy CloudFormation Stack
+name: Deploy 3-Tier Architecture
 
 on:
   push:
@@ -25,12 +25,17 @@ jobs:
 
     - name: Validate CloudFormation Template
       run: |
-        aws cloudformation validate-template --template-body file://ec2-s3-sg.yml
+        aws cloudformation validate-template \
+          --template-body file://template.json
 
     - name: Deploy CloudFormation Stack
       run: |
         aws cloudformation deploy \
-          --template-file ec2-s3-sg.yml \
-          --stack-name mystack \
-          --capabilities CAPABILITY_NAMED_IAM \
-          --parameter-overrides KeyName=apachekeypair InstanceType=t3.micro
+          --template-file template.json \
+          --stack-name three-tier-stack \
+          --capabilities CAPABILITY_NAMED_IAM CAPABILITY_IAM \
+          --parameter-overrides \
+            KeyName=apachekeypair \
+            InstanceType=t3.micro \
+            DBUsername=admin \
+            DBPassword=kavinram
