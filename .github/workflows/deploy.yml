@@ -1,41 +1,31 @@
-name: Deploy 3-Tier Architecture
+name: Deploy to S3
 
 on:
   push:
     branches:
-      - main
-    paths:
-      - '**/*.yml'
-      - '**/*.yaml'
+      - main   # deploy when pushing to main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-south-1
+        python-version: "3.10"
 
-    - name: Validate CloudFormation Template
+    - name: Install dependencies
       run: |
-        aws cloudformation validate-template \
-          --template-body file://template.json
+        pip install boto3 botocore
 
-    - name: Deploy CloudFormation Stack
+    - name: Run deploy script
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ap-south-1
       run: |
-        aws cloudformation deploy \
-          --template-file template.json \
-          --stack-name three-tier-stack \
-          --capabilities CAPABILITY_NAMED_IAM CAPABILITY_IAM \
-          --parameter-overrides \
-            KeyName=apachekeypair \
-            InstanceType=t3.micro \
-            DBUsername=admin \
-            DBPassword=kavinram
+        python yourscriptname.py
