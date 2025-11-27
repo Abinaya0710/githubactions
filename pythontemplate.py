@@ -5,7 +5,7 @@ import os
 # --- CONFIG ---
 bucket_name = "abinaya-portfolio-site-demo"   # must be globally unique
 region = "ap-south-1"
-local_folder = r"site"  # folder with index.html + images
+local_folder = r"portfolio-site"  # folder with index.html + images
 # ----------------
 
 s3 = boto3.client('s3', region_name=region)
