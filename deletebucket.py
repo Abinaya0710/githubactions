@@ -1,7 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
 
-bucket_name = "abinaya-portfolio-site-demo"
+bucket_name = "abinaya-portfolio-site-demo-Jun27"
 region = "ap-south-1"
 
 s3 = boto3.resource('s3', region_name=region)
