@@ -3,7 +3,7 @@ from botocore.exceptions import ClientError
 import os
 
 # --- CONFIG ---
-bucket_name = "abinaya-portfolio-site-demo-June"   # must be globally unique
+bucket_name = "abinaya-portfolio-site-demo-june"   # must be globally unique
 region = "ap-south-1"
 local_folder = r"portfolio-site"  # folder with index.html + images
 # ----------------
